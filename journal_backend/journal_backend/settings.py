@@ -61,7 +61,8 @@ MIDDLEWARE = [
 ROOT_URLCONF = 'journal_backend.urls'
 
 CORS_ALLOWED_ORIGINS = [
-    'http://localhost:3000',  # Allow requests from your frontend
+    'http://localhost:3000',
+    "https://journal-app-ten-lac.vercel.app"  # Allow requests from your frontend
 ]
 
 # Optionally, if you want to allow all origins during development:
