@@ -65,7 +65,6 @@ CORS_ALLOWED_ORIGINS = [
     "https://journal-app-ten-lac.vercel.app"  # Allow requests from your frontend
 ]
 
-# Optionally, if you want to allow all origins during development:
 # CORS_ALLOW_ALL_ORIGINS = True
 
 TEMPLATES = [

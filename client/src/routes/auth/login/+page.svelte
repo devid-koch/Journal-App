@@ -1,7 +1,8 @@
 <script lang="ts">
     import { loginUser } from '$lib/api/auth';
     import { goto } from '$app/navigation';
-    import { toasts } from 'svelte-toasts';
+    import { toast } from '@zerodevx/svelte-toast';
+    import { toastErrorTheme, toastSuccessTheme } from '$lib/toastThemes';
     
 
     let email = '';
@@ -13,12 +14,13 @@
         try {
             loading = true;
             const data = await loginUser(email, password);
-            toasts.success('Login successful!');
             localStorage.setItem('accessToken', data.access);
             localStorage.setItem('refreshToken', data.refresh);
+            toast.push("Login successfull!",toastSuccessTheme)
             goto('/journal');
         } catch (error:any) {
             message = error.response?.data?.detail || 'Login failed.';
+            toast.push(message, toastErrorTheme)
             loading = false;
         } finally {
             loading = false;

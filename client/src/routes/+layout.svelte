@@ -4,6 +4,7 @@
     import { onMount } from 'svelte';
     import { goto } from '$app/navigation';
     import { get } from 'svelte/store';
+    import { SvelteToast } from '@zerodevx/svelte-toast'
 
     onMount(() => {
         const { isAuthenticated } = get(authStore);
@@ -12,5 +13,7 @@
         }
     });
 </script>
+
+<SvelteToast/>
 
 <slot />

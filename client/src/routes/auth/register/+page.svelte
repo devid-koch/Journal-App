@@ -1,6 +1,9 @@
 <script lang="ts">
     import { registerUser } from '$lib/api/auth';
     import { goto } from '$app/navigation';
+    import Loader from '$lib/components/Loader/Loader.svelte';
+    import { toast } from '@zerodevx/svelte-toast';
+    import { toastErrorTheme, toastSuccessTheme } from '$lib/toastThemes';
 
     let username = '';
     let email = '';
@@ -13,10 +16,12 @@
             loading=true
             await registerUser(username, email, password);
             message = 'Registration successful!';
+            toast.push(`${message} Please Login`, toastSuccessTheme)
             goto('/auth/login');
         } catch (error:any) {
             loading=false
-            message = error.response?.data?.detail || 'Registration failed.';
+            message = error?.response?.data?.email?.[0] || error?.response?.data?.username?.[0] || 'Registration failed.';
+            toast.push(message, toastErrorTheme);
         }
     }
 </script>
@@ -60,16 +65,7 @@
             disabled={loading}
         >
             {#if loading}
-                <svg
-                    class="animate-spin h-5 w-5 mr-3"
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                >
-                    <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="4" d="M4 12a8 8 0 118 8"></path>
-                </svg>
+                <Loader/>
             {:else}
                 Register
             {/if}

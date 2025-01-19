@@ -16,7 +16,7 @@ class JournalEntryListCreateView(ListCreateAPIView):
     serializer_class = JournalEntrySerializer
 
     def get_queryset(self):
-        return JournalEntry.objects.filter(user=self.request.user)
+        return JournalEntry.objects.filter(user=self.request.user).order_by('-created_at')
 
     def perform_create(self, serializer):
         try:
